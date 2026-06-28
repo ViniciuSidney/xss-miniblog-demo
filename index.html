@@ -1,183 +1,344 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MiniBlog Escolar — Demonstração XSS</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="app-shell">
-      <div class="ambient ambient-1"></div>
-      <div class="ambient ambient-2"></div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>MiniBlog Escolar — Demonstração XSS</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
 
-      <main class="app">
-        <header class="hero panel floating-panel">
-          <div class="hero__content">
-            <p class="eyebrow">Protótipo local • Simulação educacional</p>
-            <h1>MiniBlog Escolar</h1>
-            <p class="hero__text">
-              Demonstração visual do comportamento de uma página vulnerável e de uma página corrigida em relação ao XSS, sem ataque real e em ambiente
-              controlado.
-            </p>
-          </div>
+	<body>
+		<div class="app-shell">
+			<div class="ambient ambient-1"></div>
+			<div class="ambient ambient-2"></div>
 
-          <div class="hero__badges">
-            <span class="badge">Uso local</span>
-            <span class="badge">Sem sistema real</span>
-            <span class="badge">Finalidade didática</span>
-          </div>
-        </header>
+			<main class="app">
+				<header class="hero panel floating-panel">
+					<div class="hero__content">
+						<p class="eyebrow">Protótipo local • Simulação educacional</p>
+						<h1>Laboratório XSS Escolar</h1>
+						<p class="hero__text">Demonstrações visuais de XSS armazenado e XSS refletido, sem ataque real e em ambiente controlado.</p>
+					</div>
 
-        <section class="workspace">
-          <section class="panel floating-panel panel-composer">
-            <div class="panel-scroll">
-              <div class="panel__header">
-                <div>
-                  <p class="panel__kicker">Etapa 1</p>
-                  <h2>Entrada de comentário</h2>
-                  <p class="panel__desc">Digite um comentário manualmente ou use um dos exemplos prontos para a demonstração.</p>
-                </div>
-              </div>
+					<div class="hero__badges">
+						<span class="badge">Uso local</span>
+						<span class="badge">Sem sistema real</span>
+						<span class="badge">Finalidade didática</span>
+					</div>
+				</header>
 
-              <div class="input-block">
-                <label for="commentInput" class="field-label">Comentário</label>
-                <textarea id="commentInput" class="field" rows="7" placeholder="Digite seu comentário aqui..."></textarea>
-              </div>
+				<nav class="demo-tabs" aria-label="Alternar demonstrações">
+					<button class="demo-tab is-active" type="button" data-demo-target="storedDemo">Demonstração 1 — XSS armazenado</button>
 
-              <div class="composer-actions composer-actions--examples">
-                <button id="normalExampleBtn" class="btn btn-soft" type="button">Inserir comentário normal</button>
-                <button id="xssExampleBtn" class="btn btn-soft" type="button">Inserir exemplo XSS didático</button>
-              </div>
+					<button class="demo-tab" type="button" data-demo-target="reflectedDemo">Demonstração 2 — XSS refletido</button>
+				</nav>
 
-              <div class="composer-actions composer-actions--send">
-                <button id="sendVulnerableBtn" class="btn btn-danger" type="button">Enviar para versão vulnerável</button>
-                <button id="sendSafeBtn" class="btn btn-success" type="button">Enviar para versão corrigida</button>
-                <button id="clearAllBtn" class="btn btn-ghost" type="button">Limpar tudo</button>
-              </div>
+				<section id="storedDemo" class="demo-view is-active">
+					<section class="workspace">
+						<section class="panel floating-panel panel-composer">
+							<div class="panel-scroll">
+								<div class="panel__header">
+									<div>
+										<p class="panel__kicker">Etapa 1</p>
+										<h2>Entrada de comentário</h2>
+										<p class="panel__desc">Digite um comentário manualmente ou use um dos exemplos prontos para a demonstração.</p>
+									</div>
+								</div>
 
-              <div class="mini-guide">
-                <div class="mini-guide__item">
-                  <strong>Comentário normal:</strong>
-                  <span>deve aparecer normalmente nas duas áreas.</span>
-                </div>
-                <div class="mini-guide__item">
-                  <strong>Exemplo XSS:</strong>
-                  <span>
-                    na versão vulnerável, será simulada a interpretação do conteúdo como código; na versão corrigida, ele aparecerá apenas como texto.
-                  </span>
-                </div>
-              </div>
-            </div>
-          </section>
+								<div class="input-block">
+									<label for="commentInput" class="field-label">Comentário</label>
+									<textarea id="commentInput" class="field" rows="7" placeholder="Digite seu comentário aqui..."></textarea>
+								</div>
 
-          <section class="panel floating-panel panel-result panel-result--danger">
-            <div class="panel-scroll">
-              <div class="panel__header">
-                <div>
-                  <p class="panel__kicker">Etapa 2</p>
-                  <h2>Versão vulnerável</h2>
-                  <p class="panel__desc">Simula um sistema que interpreta a entrada do usuário de forma insegura.</p>
-                </div>
+								<div class="composer-actions composer-actions--examples">
+									<button id="normalExampleBtn" class="btn btn-soft" type="button">Inserir comentário normal</button>
+									<button id="xssExampleBtn" class="btn btn-soft" type="button">Inserir exemplo XSS didático</button>
+								</div>
 
-                <span class="status-pill status-pill--danger">Inseguro</span>
-              </div>
+								<div class="composer-actions composer-actions--send">
+									<button id="sendVulnerableBtn" class="btn btn-danger" type="button">Enviar para versão vulnerável</button>
+									<button id="sendSafeBtn" class="btn btn-success" type="button">Enviar para versão corrigida</button>
+									<button id="clearAllBtn" class="btn btn-ghost" type="button">Limpar tudo</button>
+								</div>
 
-              <div class="output-area">
-                <div class="output-area__head">
-                  <span>Comentários publicados</span>
-                  <span id="vulnerableCount">0 itens</span>
-                </div>
+								<div class="mini-guide">
+									<div class="mini-guide__item">
+										<strong>Comentário normal:</strong>
+										<span>deve aparecer normalmente nas duas áreas.</span>
+									</div>
+									<div class="mini-guide__item">
+										<strong>Exemplo XSS:</strong>
+										<span> na versão vulnerável, será simulada a interpretação do conteúdo como código; na versão corrigida, ele aparecerá apenas como texto. </span>
+									</div>
+								</div>
+							</div>
+						</section>
 
-                <div id="vulnerableOutput" class="output-list">
-                  <p class="empty-state">Nenhum comentário enviado ainda.</p>
-                </div>
-              </div>
-            </div>
-          </section>
+						<section class="panel floating-panel panel-result panel-result--danger">
+							<div class="panel-scroll">
+								<div class="panel__header">
+									<div>
+										<p class="panel__kicker">Etapa 2</p>
+										<h2>Versão vulnerável</h2>
+										<p class="panel__desc">Simula um sistema que interpreta a entrada do usuário de forma insegura.</p>
+									</div>
 
-          <section class="panel floating-panel panel-result panel-result--success">
-            <div class="panel-scroll">
-              <div class="panel__header">
-                <div>
-                  <p class="panel__kicker">Etapa 3</p>
-                  <h2>Versão corrigida</h2>
-                  <p class="panel__desc">Exibe o mesmo conteúdo apenas como texto, sem execução de script.</p>
-                </div>
+									<span class="status-pill status-pill--danger">Inseguro</span>
+								</div>
 
-                <span class="status-pill status-pill--success">Seguro</span>
-              </div>
+								<div class="output-area">
+									<div class="output-area__head">
+										<span>Comentários publicados</span>
+										<span id="vulnerableCount">0 itens</span>
+									</div>
 
-              <div class="output-area">
-                <div class="output-area__head">
-                  <span>Comentários publicados</span>
-                  <span id="safeCount">0 itens</span>
-                </div>
+									<div id="vulnerableOutput" class="output-list">
+										<p class="empty-state">Nenhum comentário enviado ainda.</p>
+									</div>
+								</div>
+							</div>
+						</section>
 
-                <div id="safeOutput" class="output-list">
-                  <p class="empty-state">Nenhum comentário enviado ainda.</p>
-                </div>
-              </div>
-            </div>
-          </section>
-        </section>
+						<section class="panel floating-panel panel-result panel-result--success">
+							<div class="panel-scroll">
+								<div class="panel__header">
+									<div>
+										<p class="panel__kicker">Etapa 3</p>
+										<h2>Versão corrigida</h2>
+										<p class="panel__desc">Exibe o mesmo conteúdo apenas como texto, sem execução de script.</p>
+									</div>
 
-        <section class="panel floating-panel panel-note">
-          <div class="panel-scroll">
-            <div class="panel__header">
-              <div>
-                <p class="panel__kicker">Etapa 4</p>
-                <h2>Observações da demonstração</h2>
-                <p class="panel__desc">Resumo do comportamento observado e contexto ético do protótipo.</p>
-              </div>
-            </div>
+									<span class="status-pill status-pill--success">Seguro</span>
+								</div>
 
-            <div class="note-grid">
-              <div class="note-card">
-                <h3>Última ação registrada</h3>
-                <p id="lastAction" class="note-main">Nenhuma ação realizada até o momento.</p>
-              </div>
+								<div class="output-area">
+									<div class="output-area__head">
+										<span>Comentários publicados</span>
+										<span id="safeCount">0 itens</span>
+									</div>
 
-              <div class="note-card">
-                <h3>Contexto ético</h3>
-                <p>
-                  Esta interface foi criada apenas para fins educacionais, em ambiente local, fictício e controlado. Nenhum site real, sistema de terceiros,
-                  dado pessoal ou serviço externo foi atacado, explorado ou comprometido.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
+									<div id="safeOutput" class="output-list">
+										<p class="empty-state">Nenhum comentário enviado ainda.</p>
+									</div>
+								</div>
+							</div>
+						</section>
+					</section>
 
-    <div id="simulatedModal" class="sim-modal hidden" aria-hidden="true">
-      <div class="sim-modal__backdrop"></div>
+					<section class="panel floating-panel panel-note">
+						<div class="panel-scroll">
+							<div class="panel__header">
+								<div>
+									<p class="panel__kicker">Etapa 4</p>
+									<h2>Observações da demonstração</h2>
+									<p class="panel__desc">Resumo do comportamento observado e contexto ético do protótipo.</p>
+								</div>
+							</div>
 
-      <div class="sim-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <div class="sim-modal__top">
-          <div>
-            <p class="sim-modal__eyebrow">Simulação didática</p>
-            <h2 id="modalTitle">Alerta da página</h2>
-          </div>
+							<div class="note-grid">
+								<div class="note-card">
+									<h3>Última ação registrada</h3>
+									<p id="lastAction" class="note-main">Nenhuma ação realizada até o momento.</p>
+								</div>
 
-          <button id="closeModalBtn" class="icon-btn" type="button" aria-label="Fechar">X</button>
-        </div>
+								<div class="note-card">
+									<h3>Contexto ético</h3>
+									<p>
+										Esta interface foi criada apenas para fins educacionais, em ambiente local, fictício e controlado. Nenhum site real, sistema de terceiros, dado pessoal ou serviço externo
+										foi atacado, explorado ou comprometido.
+									</p>
+								</div>
+							</div>
+						</div>
+					</section>
+				</section>
 
-        <div class="sim-modal__body">
-          <p class="sim-modal__message">Demonstração de XSS</p>
-          <p class="sim-modal__explanation">
-            Nesta versão vulnerável, a entrada foi interpretada como código. Isso representa, de forma simulada, o comportamento inseguro de uma página
-            vulnerável.
-          </p>
-        </div>
+				<section id="reflectedDemo" class="demo-view">
+					<section class="reflected-search-layout">
+						<section class="panel panel-search search-main-panel">
+							<div class="panel-scroll">
+								<div class="panel__header">
+									<div>
+										<p class="panel__kicker">Etapa 1</p>
+										<h2 class="panel__title">Entrada de busca</h2>
+										<p class="panel__desc">Digite um termo de busca ou use um dos exemplos prontos para simular um XSS refletido.</p>
+									</div>
+								</div>
 
-        <div class="sim-modal__actions">
-          <button id="confirmModalBtn" class="btn btn-primary" type="button">OK</button>
-        </div>
-      </div>
-    </div>
+								<div class="search-box">
+									<label for="searchInput" class="field-label">Pesquisar</label>
 
-    <script src="script.js"></script>
-  </body>
+									<div class="search-input-wrap">
+										<span class="search-icon" aria-hidden="true">🔎</span>
+										<input id="searchInput" class="search-field" type="text" placeholder="Pesquisar na Busca Escolar..." autocomplete="off" />
+									</div>
+								</div>
+							</div>
+						</section>
+
+						<section class="panel panel-actions-demo2">
+							<div class="panel-scroll">
+								<div class="panel__header">
+									<div>
+										<p class="panel__kicker">Etapa 2</p>
+										<h2 class="panel__title">Ações</h2>
+										<p class="panel__desc">Use os botões para preencher exemplos e testar os dois comportamentos.</p>
+									</div>
+								</div>
+
+								<div class="search-actions-grid">
+									<button id="normalSearchBtn" class="btn btn-soft" type="button">Inserir busca normal</button>
+
+									<button id="reflectedExampleBtn" class="btn btn-soft" type="button">Inserir exemplo XSS refletido</button>
+
+									<button id="runReflectedVulnerableBtn" class="btn btn-danger" type="button">Testar versão vulnerável</button>
+
+									<button id="runReflectedSafeBtn" class="btn btn-success" type="button">Testar versão corrigida</button>
+
+									<button id="clearReflectedBtn" class="btn btn-ghost" type="button">Limpar teste</button>
+								</div>
+							</div>
+						</section>
+
+						<section class="panel panel-url">
+							<div class="panel-scroll">
+								<div class="panel__header">
+									<div>
+										<p class="panel__kicker">Etapa 3</p>
+										<h2 class="panel__title">URL simulada</h2>
+										<p class="panel__desc">Representa o parâmetro que seria enviado pela URL em uma página de busca.</p>
+									</div>
+								</div>
+
+								<div class="url-box">
+									<span class="url-label">Endereço simulado:</span>
+									<code id="simulatedUrl">/busca?termo=</code>
+								</div>
+							</div>
+						</section>
+
+						<section class="panel panel-info-demo2">
+							<div class="panel-scroll">
+								<div class="panel__header">
+									<div>
+										<p class="panel__kicker">Info</p>
+										<h2 class="panel__title">Como funciona</h2>
+										<p class="panel__desc">No XSS refletido, a entrada não fica salva em comentários ou banco de dados.</p>
+									</div>
+								</div>
+
+								<div class="info-card">
+									<p>O termo pesquisado vem de uma requisição, como uma busca ou parâmetro de URL, e é refletido imediatamente na página.</p>
+
+									<p>A demonstração compara uma versão vulnerável, que simula a interpretação da entrada, com uma versão corrigida, que exibe o conteúdo apenas como texto.</p>
+								</div>
+							</div>
+						</section>
+
+						<section class="panel panel-result panel-result--danger reflected-vulnerable-panel">
+							<div class="panel-scroll">
+								<div class="panel__header">
+									<div>
+										<p class="panel__kicker">Etapa 4</p>
+										<h2 class="panel__title">Resultado vulnerável</h2>
+										<p class="panel__desc">Simula uma página que reflete a busca sem tratamento adequado.</p>
+									</div>
+
+									<span class="status-pill status-pill--danger">Inseguro</span>
+								</div>
+
+								<div class="output-area">
+									<div class="output-area__head">
+										<span>Resultado da busca</span>
+										<span id="reflectedVulnerableStatus">Aguardando</span>
+									</div>
+
+									<div id="reflectedVulnerableOutput" class="output-list">
+										<p class="empty-state">Nenhuma busca realizada ainda.</p>
+									</div>
+								</div>
+							</div>
+						</section>
+
+						<section class="panel panel-result panel-result--success reflected-safe-panel">
+							<div class="panel-scroll">
+								<div class="panel__header">
+									<div>
+										<p class="panel__kicker">Etapa 5</p>
+										<h2 class="panel__title">Resultado corrigido</h2>
+										<p class="panel__desc">Exibe o termo pesquisado apenas como texto, sem execução de script.</p>
+									</div>
+
+									<span class="status-pill status-pill--success">Seguro</span>
+								</div>
+
+								<div class="output-area">
+									<div class="output-area__head">
+										<span>Resultado da busca</span>
+										<span id="reflectedSafeStatus">Aguardando</span>
+									</div>
+
+									<div id="reflectedSafeOutput" class="output-list">
+										<p class="empty-state">Nenhuma busca realizada ainda.</p>
+									</div>
+								</div>
+							</div>
+						</section>
+
+						<section class="panel panel-note reflected-note">
+							<div class="panel-scroll">
+								<div class="panel__header">
+									<div>
+										<p class="panel__kicker">Etapa 6</p>
+										<h2 class="panel__title">Observações do XSS refletido</h2>
+										<p class="panel__desc">Resumo do comportamento observado nesta demonstração.</p>
+									</div>
+								</div>
+
+								<div class="note-grid">
+									<div class="note-card">
+										<h3>Última ação registrada</h3>
+										<p id="reflectedLastAction" class="note-main">Nenhuma ação realizada até o momento.</p>
+									</div>
+
+									<div class="note-card">
+										<h3>Diferença principal</h3>
+										<p>No XSS refletido, a entrada não fica armazenada. Ela vem de uma requisição, como uma busca ou parâmetro de URL, e é refletida imediatamente na página.</p>
+									</div>
+								</div>
+							</div>
+						</section>
+					</section>
+				</section>
+
+				<div id="simulatedModal" class="sim-modal hidden" aria-hidden="true">
+					<div class="sim-modal__backdrop"></div>
+
+					<div class="sim-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+						<div class="sim-modal__top">
+							<div>
+								<p class="sim-modal__eyebrow">Simulação didática</p>
+								<h2 id="modalTitle">Alerta da página</h2>
+							</div>
+
+							<button id="closeModalBtn" class="icon-btn" type="button" aria-label="Fechar">X</button>
+						</div>
+
+						<div class="sim-modal__body">
+							<p class="sim-modal__message">Demonstração de XSS</p>
+							<p class="sim-modal__explanation">
+								Nesta versão vulnerável, a entrada foi interpretada como código. Isso representa, de forma simulada, o comportamento inseguro de uma página vulnerável.
+							</p>
+						</div>
+
+						<div class="sim-modal__actions">
+							<button id="confirmModalBtn" class="btn btn-primary" type="button">OK</button>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+
+		<script src="script.js"></script>
+	</body>
 </html>
